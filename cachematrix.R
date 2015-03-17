@@ -1,6 +1,12 @@
-## These functions are used to store a matrix and cache its inverse in a custom object type one can think of
-## as a "cacheMatrix".
-
+#########################################################################################################################
+##
+##  cachematrix.R code written by Ronald Wilkinson for Coursera's R Programming cours, Programming Assignment 2
+##
+#########################################################################################################################
+##
+## This code defines functions used to store a matrix and cache its inverse in a custom object class one could call
+## a "cacheMatrix".
+##
 ## makeCacheMatrix creates an object that holds:
 ##
 ##      an internal storage location for a matrix
@@ -10,8 +16,8 @@
 ##
 ##      It returns a list containing the get and set functions for both matrix and inverse
 ##      so their values can be accessed from outside the object.
-
-
+##
+##
 ## cacheSolve returns the inverse of a matrix that is stored in a "cacheMatrix" object.
 ##
 ##      If the inverse is already cached, cacheSolve returns the cached copy.
@@ -25,7 +31,8 @@
 ##      Note that if just returning the cached inverse, the optional arguments are ignored, so if you want to recalculate
 ##      the inverse of a cacheMatrix x using different optional arguments, it is necessary to first clear the cache using
 ##      x$setinverse(NULL) before calling cacheSolve(x).
-
+##
+##########################################################################################################################
 
 
 makeCacheMatrix <- function(x = matrix()) {
@@ -37,29 +44,38 @@ makeCacheMatrix <- function(x = matrix()) {
 
         ## The function argument already initializes storage for the candidate matrix x,
         ## so just need to explicitly initialize storage for the inverse of x.
+
         xinverse <- NULL
 
 
-        ## Create a function to store the value of the x matrix.
+        ## Create an object function to store the value of the x matrix.
         ## Since x is newly set, its inverse has not yet been calculated,
         ## so clear the inverse cache of any previous value.
+
         set <- function(y) {
                 ## Use <<- to store variables at object level, not subfunction level
                 x <<- y
                 xinverse <<- NULL
         }
 
-        ## Create a function to retrieve the value of the x matrix.
+
+        ## Create an object function to retrieve the value of the x matrix.
+
         get <- function() x
 
-        ## Create a function to store the value of the x inverse matrix.
+
+        ## Create an object function to store the value of the x inverse matrix.
+
         setinverse <- function(xi) xinverse <<- xi  ## Use <<- to store variable at object level, not subfunction level
 
 
-        ##Create a function to retrieve the value of the x inverse matrix.
+        ## Create an object function to retrieve the value of the x inverse matrix.
+
         getinverse <- function() xinverse
 
-        ## Return the storage and retrieval functions list.
+
+        ## Return a list of the storage and retrieval object functions for external access.
+
         list(set = set, get = get,
              setinverse = setinverse,
              getinverse = getinverse)
@@ -72,17 +88,18 @@ cacheSolve <- function(x, ...) {
         ## calculating the inverse only if it is not already cached.
 
         ## Return cached inverse if it exists
+
         xinverse <- x$getinverse()
         if(!is.null(xinverse)) {
                 message("getting cached data")
                 return(xinverse)
         }
 
-
         ## Otherwise:
+
         xmatrix <- x$get()              ## Retrieve the x matrix
         xinverse <- solve(xmatrix, ...) ## Calculate its inverse, passing optional parameters
-        x$setinverse(xinverse)          ## Cache the caculated inverse
+        x$setinverse(xinverse)          ## Cache the calculated inverse
         xinverse                        ## Return the calculated inverse for immediate use.
 
 }
