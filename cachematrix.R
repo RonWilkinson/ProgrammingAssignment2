@@ -1,6 +1,9 @@
 #########################################################################################################################
 ##
-##  cachematrix.R code written by Ronald Wilkinson for Coursera's R Programming cours, Programming Assignment 2
+##  cachematrix.R code written by Ronald Wilkinson for Coursera's R Programming course, Programming Assignment 2
+##
+##      Originally written when I took the course standalone in 2015.  Redoing course as part of certificate program
+##      in 2017.  The only change in 2017 is a slight revision of the comments.
 ##
 #########################################################################################################################
 ##
